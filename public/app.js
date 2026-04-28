@@ -230,7 +230,44 @@ function renderSlots() {
     </section>
   `).join("");
 }
+function renderClientCalendar() {
+  if (!els.clientCalendar) return;
 
+  const clientId = state.currentClient?.id;
+
+  const bookedSlots = state.bookings
+    .filter((booking) => booking.clientId === clientId)
+    .map((booking) => {
+      const slot = state.slots.find((s) => s.id === booking.slotId);
+      return slot ? { slot, booking } : null;
+    })
+    .filter(Boolean)
+    .sort((a, b) => `${a.slot.date} ${a.slot.time}`.localeCompare(`${b.slot.date} ${b.slot.time}`));
+
+  if (!bookedSlots.length) {
+    els.clientCalendar.innerHTML = '<div class="empty-state">No booked sessions yet.</div>';
+    return;
+  }
+
+  els.clientCalendar.innerHTML = bookedSlots.map(({ slot, booking }) => `
+    <article class="admin-item">
+      <div class="admin-main">
+        <div class="time-block">
+          <span class="time-icon">✓</span>
+          <div class="time-copy">
+            <strong>${escapeHtml(formatDate(slot.date))}, ${escapeHtml(slot.time)}</strong>
+            <span>${escapeHtml(slot.type)}</span>
+          </div>
+        </div>
+        <span class="pill booked">Booked</span>
+      </div>
+      <div class="admin-meta">
+        <span>${escapeHtml(slot.location)}</span>
+        ${booking.focus ? '<span>' + escapeHtml(booking.focus) + '</span>' : ''}
+      </div>
+    </article>
+  `).join("");
+}
 function renderSelectedSession() {
   const slots = selectedSlots();
   if (!slots.length) {

@@ -925,12 +925,12 @@ const server = http.createServer(async (req, res) => {
 
 server.on("error", (error) => {
   if (error.code === "EADDRINUSE") {
-    console.error(`Port ${PORT} is already in use. Try PORT=3001 npm start.`);
+    console.error(`Port ${PORT} is already in use.`);
     process.exit(1);
   }
   throw error;
 });
 
-server.listen(PORT, HOST, () => {
-  console.log(`James PT booking app running at http://${HOST}:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`James PT booking app running on http://0.0.0.0:${PORT}`);
 });

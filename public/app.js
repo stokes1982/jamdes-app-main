@@ -35,6 +35,7 @@ const els = {
   openCount: document.querySelector("#open-count"),
   bookedCount: document.querySelector("#booked-count"),
   nextSlot: document.querySelector("#next-slot"),
+  clientCalendar: document.querySelector("#client-calendar"),
   toast: document.querySelector("#toast")
 };
 

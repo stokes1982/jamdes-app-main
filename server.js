@@ -3,8 +3,8 @@ const path = require("node:path");
 const crypto = require("node:crypto");
 const { promises: fs } = require("node:fs");
 
-const PORT = Number(process.env.PORT || 3000);
-const HOST = process.env.HOST || "127.0.0.1";
+const PORT = Number(process.env.PORT || 10000);
+
 const ADMIN_PIN = process.env.ADMIN_PIN || "james";
 const SESSION_SECRET = process.env.SESSION_SECRET
   || crypto.createHash("sha256").update(`${ADMIN_PIN}:james-pt-booking`).digest("hex");

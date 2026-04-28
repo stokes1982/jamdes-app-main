@@ -21,8 +21,10 @@ clientForm.addEventListener("submit", async (event) => {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "same-origin",
       body: JSON.stringify({ accessCode })
     });
+
     const data = await response.json();
 
     if (!response.ok) {
@@ -30,7 +32,7 @@ clientForm.addEventListener("submit", async (event) => {
     }
 
     sessionStorage.removeItem("jamesAdminPin");
-    window.location.href = "/app";
+    window.location.assign("/app");
   } catch (error) {
     showToast(error.message);
   }
@@ -46,8 +48,10 @@ adminForm.addEventListener("submit", async (event) => {
       headers: {
         "Content-Type": "application/json"
       },
+      credentials: "same-origin",
       body: JSON.stringify({ pin })
     });
+
     const data = await response.json();
 
     if (!response.ok) {
@@ -55,7 +59,7 @@ adminForm.addEventListener("submit", async (event) => {
     }
 
     sessionStorage.setItem("jamesAdminPin", pin);
-    window.location.href = "/app";
+    window.location.assign("/app");
   } catch (error) {
     showToast(error.message);
   }

@@ -290,7 +290,7 @@ function renderAdminList() {
     <strong>Booked by:</strong> ${escapeHtml(clientName)}${clientPhone ? " · " + escapeHtml(clientPhone) : ""}
   </span>
 ` : ""}
-          ${bookingFocus ? `<span>${escapeHtml(bookingFocus)}</span>` : ""}
+          ${bookingFocus ? '<span>' + escapeHtml(bookingFocus) + '</span>' : ''}
         </div>
         ${booking ? `
           <form class="session-note-form" data-session-note-form="${escapeHtml(booking.id)}">

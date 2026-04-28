@@ -285,7 +285,11 @@ function renderAdminList() {
         </div>
         <div class="admin-meta">
           <span>${escapeHtml(slot.location)}</span>
-          ${booking ? `<span><strong>Booked by:</strong> ${escapeHtml(clientName)}${clientPhone ? ` · ${escapeHtml(clientPhone)}` : ""}</span>` : ""}
+          ${booking ? `
+  <span>
+    <strong>Booked by:</strong> ${escapeHtml(clientName)}${clientPhone ? " · " + escapeHtml(clientPhone) : ""}
+  </span>
+` : ""}
           ${bookingFocus ? `<span>${escapeHtml(bookingFocus)}</span>` : ""}
         </div>
         ${booking ? `

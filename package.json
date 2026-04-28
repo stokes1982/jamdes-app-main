@@ -1,0 +1,19 @@
+{
+  "name": "james-pt-booking",
+  "version": "1.0.0",
+  "description": "A lightweight booking app for James PT clients.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "booking",
+    "personal-trainer",
+    "schedule"
+  ],
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>James PT Booking</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img src="/assets/coach-mark.svg" alt="" class="brand-mark">
+        <div>
+          <strong>James PT</strong>
+          <span>Private coaching booking</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <nav class="view-tabs" aria-label="App view">
+          <button class="tab is-active" type="button" data-view="client">Client</button>
+          <button class="tab" type="button" data-view="coach">James</button>
+        </nav>
+        <button class="ghost-button top-logout" id="logout-button" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="view is-active" id="client-view" aria-labelledby="client-heading">
+        <div class="client-home-grid">
+          <section class="client-welcome-panel" id="client-welcome" aria-live="polite">
+            <p class="eyebrow">Client portal</p>
+            <h1>Welcome</h1>
+            <span class="muted">Your bookings, home training and progress are all in one place.</span>
+          </section>
+
+          <section class="homework-panel" aria-labelledby="homework-heading">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">From James</p>
+                <h2 id="homework-heading">Home exercises</h2>
+              </div>
+            </div>
+            <div class="exercise-list" id="exercise-list" aria-live="polite"></div>
+          </section>
+
+          <section class="progress-panel" aria-labelledby="progress-heading">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Progress</p>
+                <h2 id="progress-heading">Photos</h2>
+              </div>
+            </div>
+            <form class="photo-form" id="photo-form">
+              <label>
+                Photo
+                <input name="photo" type="file" accept="image/png,image/jpeg,image/webp" required>
+              </label>
+              <label>
+                Note
+                <textarea name="note" rows="2"></textarea>
+              </label>
+              <button class="primary-button" type="submit">Upload photo</button>
+            </form>
+            <div class="photo-list" id="photo-list" aria-live="polite"></div>
+          </section>
+        </div>
+
+        <div class="client-layout">
+          <section class="schedule-panel" aria-labelledby="client-heading">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Live availability</p>
+                <h1 id="client-heading">Open sessions</h1>
+              </div>
+
+              <div class="filter-group" aria-label="Filter sessions">
+                <button class="filter is-active" type="button" data-filter="all">All</button>
+                <button class="filter" type="button" data-filter="morning">Morning</button>
+                <button class="filter" type="button" data-filter="lunch">Lunch</button>
+                <button class="filter" type="button" data-filter="evening">Evening</button>
+              </div>
+            </div>
+
+            <div class="stats-grid" aria-label="Schedule summary">
+              <div class="stat">
+                <span>Open</span>
+                <strong id="open-count">0</strong>
+              </div>
+              <div class="stat">
+                <span>Next</span>
+                <strong id="next-slot">-</strong>
+              </div>
+              <div class="stat">
+                <span>Booked</span>
+                <strong id="booked-count">0</strong>
+              </div>
+            </div>
+
+            <div class="slot-list" id="slot-list" aria-live="polite"></div>
+          </section>
+
+          <aside class="booking-panel" aria-labelledby="booking-heading">
+            <div class="selected-session" id="selected-session">
+              <span class="badge">Selected sessions</span>
+              <strong>No sessions selected</strong>
+              <span class="muted">Awaiting selection.</span>
+            </div>
+
+            <form class="profile-form" id="profile-form">
+              <h2 id="booking-heading">Your details</h2>
+              <label>
+                Full name
+                <input name="name" autocomplete="name" required>
+              </label>
+              <label>
+                Email
+                <input name="email" type="email" autocomplete="email" required>
+              </label>
+              <label>
+                Phone
+                <input name="phone" autocomplete="tel" required>
+              </label>
+              <label>
+                Training focus
+                <textarea name="goals" rows="4"></textarea>
+              </label>
+              <button class="ghost-button" type="submit">Save details</button>
+            </form>
+
+            <form class="booking-form" id="booking-form">
+              <h2>Book sessions</h2>
+              <label>
+                Booking note
+                <textarea name="focus" rows="3"></textarea>
+              </label>
+              <button class="primary-button" type="submit">Confirm selected bookings</button>
+            </form>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="coach-view" aria-labelledby="coach-heading">
+        <section class="admin-lock" id="admin-lock" aria-labelledby="lock-heading">
+          <div class="section-head compact">
+            <div>
+              <p class="eyebrow">James view</p>
+              <h1 id="lock-heading">Coach access</h1>
+            </div>
+          </div>
+
+          <form class="pin-form" id="pin-form">
+            <label>
+              PIN
+              <input name="pin" type="password" autocomplete="current-password" required>
+            </label>
+            <button class="primary-button" type="submit">Unlock</button>
+          </form>
+        </section>
+
+        <div class="coach-layout is-hidden" id="coach-dashboard">
+          <section class="admin-panel">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">James view</p>
+                <h1 id="coach-heading">Schedule manager</h1>
+              </div>
+              <button class="ghost-button" id="lock-button" type="button">Lock</button>
+            </div>
+
+            <form class="slot-form" id="slot-form">
+              <label>
+                Date
+                <input name="date" type="date" required>
+              </label>
+              <label>
+                Time
+                <input name="time" type="time" required>
+              </label>
+              <label>
+                Duration
+                <select name="duration">
+                  <option value="45">45 min</option>
+                  <option value="60" selected>60 min</option>
+                  <option value="75">75 min</option>
+                  <option value="90">90 min</option>
+                </select>
+              </label>
+              <label>
+                Session
+                <select name="type">
+                  <option>Strength</option>
+                  <option>Conditioning</option>
+                  <option>Mobility</option>
+                  <option>Check-in</option>
+                </select>
+              </label>
+              <label class="wide-field">
+                Location
+                <input name="location" value="Private studio">
+              </label>
+              <button class="primary-button" type="submit">Add slot</button>
+            </form>
+
+            <div class="admin-divider"></div>
+
+            <form class="client-form" id="client-form">
+              <h2 class="wide-field">Issue client login</h2>
+              <label>
+                Name
+                <input name="name" autocomplete="off">
+              </label>
+              <label>
+                Custom code
+                <input name="accessCode" autocomplete="off" placeholder="Auto generated">
+              </label>
+              <button class="primary-button" type="submit">Create client</button>
+            </form>
+          </section>
+
+          <section class="admin-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Upcoming</p>
+                <h2>Bookings and slots</h2>
+              </div>
+            </div>
+            <div class="admin-list" id="admin-list" aria-live="polite"></div>
+          </section>
+
+          <section class="admin-panel">
+            <div class="section-head compact">
+              <div>
+                <p class="eyebrow">Client logins</p>
+                <h2>Issued codes</h2>
+              </div>
+            </div>
+            <div class="client-list" id="client-list" aria-live="polite"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>James PT Access</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body class="login-body">
+    <main class="login-shell">
+      <section class="login-panel" aria-labelledby="login-heading">
+        <div class="login-brand">
+          <img src="/assets/coach-mark.svg" alt="" class="brand-mark">
+          <div>
+            <strong>James PT</strong>
+            <span>Private booking app</span>
+          </div>
+        </div>
+
+        <div>
+          <p class="eyebrow">Client access</p>
+          <h1 id="login-heading">Private sign in</h1>
+        </div>
+
+        <form class="login-form" id="client-login-form">
+          <label>
+            Client code
+            <input name="accessCode" type="password" autocomplete="current-password" required autofocus>
+          </label>
+          <button class="primary-button" type="submit">Client login</button>
+        </form>
+
+        <form class="login-form coach-login-form" id="admin-login-form">
+          <label>
+            James PIN
+            <input name="pin" type="password" autocomplete="current-password" required>
+          </label>
+          <button class="ghost-button" type="submit">James login</button>
+        </form>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/login.js"></script>
+  </body>
+</html>

@@ -471,6 +471,7 @@ function render() {
   renderClientWelcome();
   renderExerciseList();
   renderPhotoList();
+  renderClientCalendar();
   renderSlots();
   renderSelectedSession();
   renderAdminList();

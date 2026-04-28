@@ -597,7 +597,63 @@ async function handleApi(req, res, pathname) {
     sendJson(res, 200, { ok: true, client: sanitizeClient(client) });
     return;
   }
+// ===== ADMIN (JAMES) BOOK CLIENT INTO SESSION =====
+if (req.method === "POST" && pathname === "/api/admin/bookings") {
+  if (!requireAdmin(req, res)) return;
 
+  const payload = await readBody(req);
+  const clientId = normalizeText(payload.clientId);
+  const slotId = normalizeText(payload.slotId);
+  const focus = normalizeText(payload.focus);
+
+  if (!clientId || !slotId) {
+    sendError(res, 400, "Client and session are required.");
+    return;
+  }
+
+  const store = await loadStore();
+  const client = store.clients.find((item) => item.id === clientId);
+  const slot = store.slots.find((item) => item.id === slotId);
+
+  if (!client) {
+    sendError(res, 404, "Client not found.");
+    return;
+  }
+
+  if (!slot) {
+    sendError(res, 404, "Session not found.");
+    return;
+  }
+
+  if (slot.status !== "open" || store.bookings.some((b) => b.slotId === slot.id)) {
+    sendError(res, 409, "That session is already booked.");
+    return;
+  }
+
+  const booking = {
+    id: crypto.randomUUID(),
+    slotId: slot.id,
+    clientId: client.id,
+    clientName: client.name,
+    clientEmail: client.email,
+    clientPhone: client.phone,
+    goals: client.goals,
+    focus,
+    sessionNotes: "",
+    createdAt: new Date().toISOString()
+  };
+
+  slot.status = "booked";
+  store.bookings.push(booking);
+
+  await saveStore(store);
+
+  sendJson(res, 201, { booking, slot });
+  return;
+}
+
+// ===== CLIENT SELF BOOKING (EXISTING) =====
+if (req.method === "POST" && pathname === "/api/bookings") {
   if (req.method === "POST" && pathname === "/api/bookings") {
     const session = requireClient(req, res);
     if (!session) return;

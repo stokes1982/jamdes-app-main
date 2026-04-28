@@ -653,7 +653,7 @@ if (req.method === "POST" && pathname === "/api/admin/bookings") {
 }
 
 // ===== CLIENT SELF BOOKING (EXISTING) =====
-if (req.method === "POST" && pathname === "/api/bookings") {
+
   if (req.method === "POST" && pathname === "/api/bookings") {
     const session = requireClient(req, res);
     if (!session) return;
